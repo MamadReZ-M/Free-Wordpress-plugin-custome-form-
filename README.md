@@ -1,2 +1,6 @@
 # Free-Wordpress-plugin-custome-form-
 It is a coded plugin for WordPress that people can create their own personal forms and use validation to ensure the quality and soundness of the values ​​and store them in the database and view them in the WordPress admin panel. Suitable for those who are their first plugin and intend to learn or present a student project.
+To work with this plugin, enter the link ((https://hoovision.com)) and in the lower corner of your site, you will see a green button called free telephone consultation, which you can do your own test and evaluation, and I will be happy if If you have any questions or comments, ask me here or on the Hovision website.
+..............
+این یک افزونه کدنویسی شده برای وردپرس است که افراد می توانند فرم های شخصی خود را ایجاد کرده و از اعتبارسنجی برای اطمینان از کیفیت و صحت مقادیر استفاده کنند و آنها را در پایگاه داده ذخیره کرده و در پنل مدیریت وردپرس مشاهده کنند. مناسب برای کسانی که اولین افزونه آنها هستند و قصد یادگیری یا ارائه پروژه دانشجویی را دارند.
+برای کار کردن با این افزونه وارد لینک ((https://hoovision.com)) بشید و گوشه پایینی سایت شما دکمه ای سبز رنگ به اسم مشاوره رایگان تلفنی میبینید که میتوانید تست و ارزیابی خودتان را انجام بدید، در ضمن خوشحال میشم اگر سوال یا نظری داشتید در اینجا یا سایت هوویژن ازم بپرسید.
