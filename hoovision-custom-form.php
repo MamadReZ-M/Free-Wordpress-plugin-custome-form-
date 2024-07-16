@@ -81,22 +81,38 @@ function hoovisionContactAdminMenu()
 
 add_action('admin_menu', 'hoovisionContactAdminMenu');
 
+if (is_admin()){
+    function quickForm(){
+        global $dir;
+        $dir = plugin_dir_path(__FILE__);
 
-function contactList()
-{
-    global $dir;
-    $dir = plugin_dir_path(__FILE__);
+        wp_enqueue_style('hoovision-custom-form-style', site_url() . '/wp-content/plugins/hoovision-custom-form/asset/css/style.css');
+        wp_enqueue_style('hoovision-custom-form-bootstrap', site_url() . '/wp-content/plugins/hoovision-custom-form/asset/css/bootstrap.min.css');
+        wp_enqueue_script('hoovision-custom-form-jquery', site_url() . '/wp-content/plugins/hoovision-custom-form/asset/js/jquery.min.js', array('jquery'), 3.7, true);
+        wp_enqueue_script('hoovision-custom-form-script', site_url() . '/wp-content/plugins/hoovision-custom-form/asset/js/script.js', array('jquery'), 1.1, true);
 
-    wp_enqueue_style('hoovision-custom-form-style', site_url() . '/wp-content/plugins/hoovision-custom-form/asset/css/style.css');
-    wp_enqueue_style('hoovision-custom-form-bootstrap', site_url() . '/wp-content/plugins/hoovision-custom-form/asset/css/bootstrap.min.css');
-    wp_enqueue_script('hoovision-custom-form-jquery', site_url() . '/wp-content/plugins/hoovision-custom-form/asset/js/jquery.min.js', array('jquery'), 3.7, true);
-    wp_enqueue_script('hoovision-custom-form-script', site_url() . '/wp-content/plugins/hoovision-custom-form/asset/js/script.js', array('jquery'), 1.1, true);
+        require_once $dir . 'includes/check-input.php';
+        $checkInput = new checkInput;
 
-    require_once $dir . 'includes/check-input.php';
-    $checkInput = new checkInput;
+        require_once $dir . 'templates/back-end/quick_item.php';
+    }
+    function contactList()
+    {
+        global $dir;
+        $dir = plugin_dir_path(__FILE__);
 
-    require_once $dir . 'templates/back-end/contact_item.php';
+        wp_enqueue_style('hoovision-custom-form-style', site_url() . '/wp-content/plugins/hoovision-custom-form/asset/css/style.css');
+        wp_enqueue_style('hoovision-custom-form-bootstrap', site_url() . '/wp-content/plugins/hoovision-custom-form/asset/css/bootstrap.min.css');
+        wp_enqueue_script('hoovision-custom-form-jquery', site_url() . '/wp-content/plugins/hoovision-custom-form/asset/js/jquery.min.js', array('jquery'), 3.7, true);
+        wp_enqueue_script('hoovision-custom-form-script', site_url() . '/wp-content/plugins/hoovision-custom-form/asset/js/script.js', array('jquery'), 1.1, true);
+
+        require_once $dir . 'includes/check-input.php';
+        $checkInput = new checkInput;
+
+        require_once $dir . 'templates/back-end/contact_item.php';
+    }
 }
+
 
 function wpb_contact_form()
 {
@@ -122,7 +138,10 @@ add_shortcode('hoovision-form-shortcode', 'wpb_contact_form');
 function wpb_quick_contact_form() {
     global $dir;
     $dir = plugin_dir_path(__FILE__);
+    wp_enqueue_style('hoovision-custom-form-bootstrap', site_url() . '/wp-content/plugins/hoovision-custom-form/asset/css/bootstrap.min.css');
     wp_enqueue_style('hoovision-custom-form-style', site_url() . '/wp-content/plugins/hoovision-custom-form/asset/css/style.css');
+    wp_enqueue_script('hoovision-custom-form-jquery', site_url() . '/wp-content/plugins/hoovision-custom-form/asset/js/jquery.min.js', array('jquery'), 3.7, true);
+    wp_enqueue_script('hoovision-custom-form-bootstrap-js', site_url() . '/wp-content/plugins/hoovision-custom-form/asset/js/bootstrap.min.js', array('jquery'), 3.7, true);
 
     wp_enqueue_script('custom-form-ajax-js', plugins_url('/asset/js/ajax.js', __FILE__), array('jquery'), '1', true);
     wp_localize_script('custom-form-ajax-js', 'hoovisionAjax', array('ajaxurl' => admin_url('admin-ajax.php')));
@@ -136,48 +155,4 @@ function wpb_quick_contact_form() {
 // [hoovision-quick-form-shortcode]
 add_shortcode('hoovision-quick-form-shortcode', 'wpb_quick_contact_form');
 
-add_action('wp_ajax_submit_quick_form', 'handle_quick_form_submission');
-add_action('wp_ajax_nopriv_submit_quick_form', 'handle_quick_form_submission');
-
-function handle_quick_form_submission() {
-    global $wpdb;
-
-    $full_name = sanitize_text_field($_POST['full-name']);
-    $phone_number = sanitize_text_field($_POST['phone-number']);
-    $prefer_call = sanitize_text_field($_POST['prefer_call']);
-    $created_date = date('Y-m-d H:i:s');
-    // validation
-    $errors = [];
-    // We make sure that the values ​​are not empty
-    if (empty($full_name) || empty($phone_number) || empty($prefer_call)) {
-        $errors[] = "لطفا تمام فیلدها را پر کنید.";
-    }
-    // Iranian Phone number preg match
-    if (!preg_match('/^09[0-9]{9}$/', $phone_number)) {
-        $errors[] = "شماره موبایل معتبر نمی‌باشد. لطفا شماره موبایل معتبری وارد کنید.";
-    }
-    // If there is a problem, we will send an appropriate message
-    if (!empty($errors)) {
-        wp_send_json_error(array('success' => false, 'message' => implode('<br>', $errors)));
-    // Receive information and send to the database
-    } else {
-        $data = array(
-            'full_name' => $full_name,
-            'phone_number' => $phone_number,
-            'prefer_call' => $prefer_call,
-            'created_date' => $created_date
-        );
-
-        $table_name = $wpdb->prefix . 'hoovision_quick_form_create';
-
-        $inserted = $wpdb->insert($table_name, $data);
-        if ($inserted) {
-            // Success message sent with Json
-            wp_send_json_success(array('success' => true, 'message' => 'فرم با موفقیت ارسال شد!'));
-        } else {
-          // Faild message sent with Json
-            wp_send_json_error(array('success' => false, 'message' => 'خطایی رخ داده است. لطفاً دوباره امتحان کنید.'));
-        }
-    }
-    wp_die();
-}
+require_once "handle_quick_form_submission.php";
