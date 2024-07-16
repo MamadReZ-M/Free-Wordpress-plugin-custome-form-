@@ -89,3 +89,94 @@ input[type=radio] {
     width: 100% !important;
 }
 
+.select-none {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.pointer-events-none {
+    pointer-events: none;
+}
+
+.btn-close {
+    position: absolute !important;
+    z-index: 2;
+    left: 20px;
+    top: 20px;
+}
+
+.consultation-top {
+    margin-bottom: 25px;
+    padding-top: 75px;
+    position: relative;
+}
+
+.consultation-top::before {
+    content: "";
+    background: url("https://hoovision.com/wp-content/uploads/contact-modal-bg.webp");
+    background-position: 50%;
+    background-size: cover;
+    border-radius: 6px 6px 12px 12px;
+    bottom: 45px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+}
+
+.consultation-logo {
+    align-items: center;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(46, 48, 59, .1);
+    display: flex;
+    height: 90px;
+    justify-content: center;
+    margin: 0 auto;
+    position: relative;
+    width: 90px;
+    z-index: 2;
+}
+
+.consultation-logo img {
+    height: 47px;
+    width: auto;
+}
+
+.consultation-content {
+    padding: 0 30px 26px;
+}
+
+.consultation-phone {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.free-phone-consultation-plugin {
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(46, 48, 59, .1);
+    padding: 1px;
+    text-align: center;
+}
+
+.consultation-phone span,
+.free-phone-consultation-plugin span {
+    font-size: 13px;
+    margin-left: 10px;
+    padding-top: 2px;
+}
+
+.consultation-phone a,
+.free-phone-consultation-plugin a {
+    background: rgba(94, 196, 69, .15);
+    border-radius: 30px;
+    color: #52b63a;
+    font-size: 13px;
+    font-weight: 400;
+    padding: 4px 12px 2px;
+}
