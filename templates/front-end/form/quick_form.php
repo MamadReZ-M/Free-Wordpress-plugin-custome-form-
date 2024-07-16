@@ -7,8 +7,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 <div class="consultation-top">
                     <div class="consultation-logo">
-                        <img src="<?= site_url() ?>/wp-content/uploads/hoovision_logo-512.webp"
-                             alt="تیم طراحی سایت هوویژن">
+                        <img src="https://hoovision.com/wp-content/uploads/hoovision_logo-512.webp"
+                             alt="تیم طراحی سایت هوویژن" class="select-none pointer-events-none">
                     </div>
                 </div>
                 <div class="consultation-content">
